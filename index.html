@@ -1,0 +1,1708 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Brasas & Nobleza · Premium Grill</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garant:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Cinzel:wght@400;600;700&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --gold: #C8922A;
+  --gold-light: #E8B95A;
+  --gold-pale: #F5E6C8;
+  --ember: #8B2000;
+  --charcoal: #0E0C0A;
+  --dark: #161210;
+  --mid: #221E1A;
+  --surface: #2A2420;
+  --text: #EDE3D4;
+  --text-muted: #A09080;
+  --white: #FAF6F0;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Lato', sans-serif;
+  background: var(--charcoal);
+  color: var(--text);
+  overflow-x: hidden;
+  cursor: default;
+}
+
+/* GRAIN OVERLAY */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.35;
+}
+
+/* NAV */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 22px 60px;
+  background: linear-gradient(to bottom, rgba(14,12,10,0.95) 0%, transparent 100%);
+  transition: background 0.4s;
+}
+nav.scrolled { background: rgba(14,12,10,0.98); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(200,146,42,0.15); }
+.nav-logo {
+  font-family: 'Cinzel', serif;
+  font-size: 1.15rem;
+  letter-spacing: 0.18em;
+  color: var(--gold);
+  text-decoration: none;
+}
+.nav-logo span { color: var(--text); }
+.nav-links { display: flex; gap: 36px; list-style: none; }
+.nav-links a { font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted); text-decoration: none; transition: color 0.3s; }
+.nav-links a:hover { color: var(--gold); }
+.nav-cta {
+  font-family: 'Cinzel', serif;
+  font-size: 0.68rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--charcoal);
+  background: var(--gold);
+  border: none;
+  padding: 10px 24px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.3s, transform 0.2s;
+}
+.nav-cta:hover { background: var(--gold-light); transform: translateY(-1px); }
+
+/* ─────────────────────────────────────────
+   HERO
+───────────────────────────────────────── */
+#hero {
+  position: relative;
+  height: 100vh;
+  min-height: 700px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background-image: url('https://images.unsplash.com/photo-1544025162-d76694265947?w=1800&q=80');
+  background-size: cover;
+  background-position: center;
+  transform: scale(1.08);
+  animation: heroZoom 12s ease-in-out infinite alternate;
+}
+@keyframes heroZoom {
+  0%   { transform: scale(1.08) translate(0, 0); }
+  50%  { transform: scale(1.03) translate(-1%, 0.5%); }
+  100% { transform: scale(1.0)  translate(1%, -0.5%); }
+}
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    160deg,
+    rgba(14,12,10,0.82) 0%,
+    rgba(14,12,10,0.55) 50%,
+    rgba(139,32,0,0.25) 100%
+  );
+}
+/* ember particles */
+.embers { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+.ember {
+  position: absolute;
+  bottom: -10px;
+  width: 3px; height: 3px;
+  border-radius: 50%;
+  background: var(--gold);
+  box-shadow: 0 0 6px var(--gold-light), 0 0 12px var(--ember);
+  animation: rise linear infinite;
+  opacity: 0;
+}
+@keyframes rise {
+  0%   { transform: translateY(0) translateX(0) scale(1);   opacity: 0; }
+  10%  { opacity: 1; }
+  80%  { opacity: 0.7; }
+  100% { transform: translateY(-120vh) translateX(var(--drift)) scale(0.2); opacity: 0; }
+}
+.hero-content {
+  position: relative;
+  text-align: center;
+  padding: 0 20px;
+  max-width: 920px;
+  animation: fadeUp 1.2s ease both;
+}
+@keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.68rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 28px;
+  animation: fadeUp 1.2s 0.2s ease both;
+}
+.hero-badge::before, .hero-badge::after {
+  content: '';
+  display: block;
+  width: 40px;
+  height: 1px;
+  background: var(--gold);
+  opacity: 0.6;
+}
+.hero-content h1 {
+  font-family: 'Cormorant Garant', serif;
+  font-size: clamp(2.2rem, 5.5vw, 4.2rem);
+  font-weight: 300;
+  line-height: 1.2;
+  color: var(--white);
+  margin-bottom: 22px;
+  animation: fadeUp 1.2s 0.35s ease both;
+}
+.hero-content h1 em { font-style: italic; color: var(--gold-light); }
+.hero-content h2 {
+  font-family: 'Cormorant Garant', serif;
+  font-style: italic;
+  font-weight: 300;
+  font-size: clamp(1.05rem, 2vw, 1.35rem);
+  color: var(--gold-pale);
+  letter-spacing: 0.04em;
+  line-height: 1.8;
+  max-width: 640px;
+  margin: 0 auto 42px;
+  text-shadow: 0 2px 20px rgba(0,0,0,0.6);
+  animation: fadeUp 1.2s 0.5s ease both;
+}
+.btn-primary {
+  display: inline-block;
+  font-family: 'Cinzel', serif;
+  font-size: 0.78rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--charcoal);
+  background: var(--gold);
+  border: none;
+  padding: 18px 44px;
+  cursor: pointer;
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s, box-shadow 0.3s;
+  animation: fadeUp 1.2s 0.65s ease both;
+}
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transform: translateX(-100%);
+  transition: transform 0.5s;
+}
+.btn-primary:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(200,146,42,0.35); }
+.btn-primary:hover::before { transform: translateX(100%); }
+.hero-scroll {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  opacity: 0.5;
+  animation: heroScrollFade 1.2s 1s ease both;
+}
+@keyframes heroScrollFade {
+  from { opacity: 0; transform: translateX(-50%) translateY(16px); }
+  to   { opacity: 0.5; transform: translateX(-50%) translateY(0); }
+}
+.hero-scroll span { font-size: 0.85rem; letter-spacing: 0.25em; text-transform: uppercase; color: #fff; text-shadow: 0 2px 16px rgba(0,0,0,0.9); font-family: 'Cinzel', serif; }
+.scroll-line { width: 1px; height: 50px; background: linear-gradient(to bottom, var(--gold), transparent); animation: scrollPulse 2s infinite; }
+@keyframes scrollPulse { 0%,100% { opacity: 0.5; transform: scaleY(1); } 50% { opacity: 1; transform: scaleY(1.2); } }
+
+/* ─────────────────────────────────────────
+   SHARED STYLES
+───────────────────────────────────────── */
+section { padding: 110px 60px; }
+.section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.65rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 20px;
+}
+.section-label::before {
+  content: '';
+  display: block;
+  width: 30px;
+  height: 1px;
+  background: var(--gold);
+}
+.section-title {
+  font-family: 'Cormorant Garant', serif;
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  font-weight: 300;
+  line-height: 1.2;
+  color: var(--white);
+  margin-bottom: 12px;
+}
+.section-title em { font-style: italic; color: var(--gold-light); }
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 20px 0 40px;
+}
+.divider-line { flex: 1; max-width: 60px; height: 1px; background: var(--gold); opacity: 0.4; }
+.divider-icon { color: var(--gold); font-size: 1rem; opacity: 0.7; }
+
+/* ─────────────────────────────────────────
+   QUIÉNES SOMOS
+───────────────────────────────────────── */
+#about {
+  background: var(--dark);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+.about-text .body-text {
+  font-size: 1.05rem;
+  line-height: 1.95;
+  color: var(--text-muted);
+  font-weight: 300;
+  margin-bottom: 36px;
+}
+.about-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  border-top: 1px solid rgba(200,146,42,0.2);
+  padding-top: 36px;
+}
+.stat-item { text-align: center; }
+.stat-num {
+  font-family: 'Cormorant Garant', serif;
+  font-size: 2.4rem;
+  font-weight: 600;
+  color: var(--gold);
+  display: block;
+}
+.stat-label { font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted); }
+.about-img {
+  position: relative;
+  height: 580px;
+}
+.about-img img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.about-img-frame {
+  position: absolute;
+  inset: -14px;
+  border: 1px solid rgba(200,146,42,0.25);
+  pointer-events: none;
+}
+.about-img::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 40%;
+  background: linear-gradient(to top, var(--dark), transparent);
+}
+
+/* ─────────────────────────────────────────
+   SERVICIOS
+───────────────────────────────────────── */
+#services {
+  background: var(--charcoal);
+  text-align: center;
+}
+.services-header { margin-bottom: 70px; }
+.services-header .section-label, .services-header .divider { justify-content: center; }
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.service-card {
+  position: relative;
+  overflow: hidden;
+  height: 420px;
+  cursor: pointer;
+}
+.service-card img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform 0.7s ease;
+  display: block;
+}
+.service-card:hover img { transform: scale(1.08); }
+.service-card-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(14,12,10,0.95) 0%, rgba(14,12,10,0.3) 60%, transparent 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 34px;
+  transition: background 0.4s;
+}
+.service-card:hover .service-card-overlay {
+  background: linear-gradient(to top, rgba(14,12,10,0.98) 0%, rgba(14,12,10,0.7) 100%);
+}
+.service-num {
+  font-family: 'Cormorant Garant', serif;
+  font-size: 3.5rem;
+  font-weight: 300;
+  color: rgba(200,146,42,0.2);
+  line-height: 1;
+  margin-bottom: 8px;
+  transition: color 0.4s;
+}
+.service-card:hover .service-num { color: rgba(200,146,42,0.5); }
+.service-card-title {
+  font-family: 'Cormorant Garant', serif;
+  font-size: 1.35rem;
+  font-weight: 400;
+  color: var(--white);
+  margin-bottom: 10px;
+  line-height: 1.3;
+}
+.service-card-desc {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.4s, transform 0.4s;
+}
+.service-card:hover .service-card-desc { opacity: 1; transform: translateY(0); }
+
+/* ─────────────────────────────────────────
+   MENÚ
+───────────────────────────────────────── */
+#menu {
+  background: var(--dark);
+}
+.menu-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: start;
+}
+.menu-content {}
+.menu-category {
+  margin-bottom: 50px;
+}
+.menu-cat-label {
+  font-size: 0.62rem;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(200,146,42,0.2);
+}
+.menu-item {
+  padding: 18px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  transition: border-color 0.3s;
+}
+.menu-item:hover { border-color: rgba(200,146,42,0.2); }
+.menu-item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+  margin-bottom: 5px;
+}
+.menu-item-name {
+  font-family: 'Cormorant Garant', serif;
+  font-size: 1.1rem;
+  font-weight: 400;
+  color: var(--white);
+}
+.menu-item-badge {
+  font-size: 0.6rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--charcoal);
+  background: var(--gold);
+  padding: 3px 8px;
+  white-space: nowrap;
+  font-weight: 700;
+}
+.menu-item-desc {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+.menu-item-meta {
+  font-size: 0.7rem;
+  color: var(--gold);
+  letter-spacing: 0.08em;
+  margin-top: 4px;
+  opacity: 0.8;
+}
+.menu-image-stack {
+  position: sticky;
+  top: 100px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto;
+  gap: 8px;
+}
+.menu-img-main { grid-column: 1 / -1; height: 320px; overflow: hidden; }
+.menu-img-main img { width: 100%; height: 100%; object-fit: cover; }
+.menu-img-side { height: 200px; overflow: hidden; }
+.menu-img-side img { width: 100%; height: 100%; object-fit: cover; }
+
+/* ─────────────────────────────────────────
+   TESTIMONIOS
+───────────────────────────────────────── */
+#testimonials {
+  background: var(--mid);
+  text-align: center;
+}
+.testimonials-header { margin-bottom: 60px; }
+.testimonials-header .section-label, .testimonials-header .divider { justify-content: center; }
+.stars {
+  color: var(--gold);
+  font-size: 1.1rem;
+  letter-spacing: 4px;
+  margin-bottom: 6px;
+}
+.rating-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(200,146,42,0.1);
+  border: 1px solid rgba(200,146,42,0.25);
+  padding: 8px 20px;
+  margin-bottom: 60px;
+}
+.rating-badge span { font-family: 'Cormorant Garant', serif; font-size: 1.8rem; color: var(--gold); font-weight: 600; }
+.rating-badge small { font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); }
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  max-width: 1100px;
+  margin: 0 auto 60px;
+}
+.testimonial-card {
+  background: var(--surface);
+  padding: 42px 36px;
+  text-align: left;
+  position: relative;
+  transition: transform 0.3s;
+}
+.testimonial-card:hover { transform: translateY(-4px); }
+.testimonial-card::before {
+  content: '\201C';
+  font-family: 'Cormorant Garant', serif;
+  font-size: 5rem;
+  color: var(--gold);
+  opacity: 0.2;
+  position: absolute;
+  top: 16px; left: 28px;
+  line-height: 1;
+}
+.testimonial-source {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.6rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 18px;
+  padding: 4px 10px;
+  border: 1px solid rgba(200,146,42,0.3);
+}
+.testimonial-text {
+  font-family: 'Cormorant Garant', serif;
+  font-size: 1.05rem;
+  font-style: italic;
+  line-height: 1.75;
+  color: var(--text);
+  margin-bottom: 22px;
+}
+.testimonial-author {
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.testimonial-img {
+  width: 100%;
+  height: 260px;
+  object-fit: cover;
+  display: block;
+  margin-top: 2px;
+}
+
+/* ─────────────────────────────────────────
+   REDES SOCIALES
+───────────────────────────────────────── */
+#social {
+  background: var(--charcoal);
+  text-align: center;
+}
+.social-header { margin-bottom: 50px; }
+.social-header .section-label, .social-header .divider { justify-content: center; }
+.social-channels {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin-bottom: 60px;
+  flex-wrap: wrap;
+}
+.social-channel {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 18px 32px;
+  border: 1px solid rgba(200,146,42,0.2);
+  transition: border-color 0.3s, background 0.3s;
+  cursor: pointer;
+  text-decoration: none;
+}
+.social-channel:hover { border-color: var(--gold); background: rgba(200,146,42,0.05); }
+.social-icon {
+  width: 42px; height: 42px;
+  border-radius: 50%;
+  background: rgba(200,146,42,0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+}
+.social-info { text-align: left; }
+.social-handle { font-size: 0.9rem; color: var(--white); font-weight: 300; }
+.social-followers { font-size: 0.68rem; letter-spacing: 0.1em; color: var(--gold); }
+.social-feed {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 4px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.feed-item {
+  aspect-ratio: 1;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+}
+.feed-item img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.5s; }
+.feed-item:hover img { transform: scale(1.08); }
+.feed-item-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(200,146,42,0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.feed-item:hover .feed-item-overlay { opacity: 1; }
+.feed-item-overlay span { color: white; font-size: 1.8rem; }
+
+/* ─────────────────────────────────────────
+   CONTACTO Y RESERVAS
+───────────────────────────────────────── */
+#contact {
+  background: var(--dark);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: start;
+}
+.contact-info { padding-top: 10px; }
+.contact-info .body-text {
+  font-size: 1rem;
+  line-height: 1.9;
+  color: var(--text-muted);
+  font-weight: 300;
+  margin-bottom: 44px;
+}
+.info-list { list-style: none; display: flex; flex-direction: column; gap: 24px; }
+.info-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+}
+.info-icon {
+  width: 38px; height: 38px;
+  border: 1px solid rgba(200,146,42,0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gold);
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+.info-item-label { font-size: 0.62rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold); margin-bottom: 4px; }
+.info-item-value { font-size: 0.92rem; color: var(--text); line-height: 1.6; }
+
+/* RESERVATION WIDGET */
+.reservation-widget {
+  background: var(--surface);
+  padding: 44px;
+  border: 1px solid rgba(200,146,42,0.15);
+}
+.widget-title {
+  font-family: 'Cormorant Garant', serif;
+  font-size: 1.6rem;
+  font-weight: 300;
+  color: var(--white);
+  margin-bottom: 6px;
+}
+.widget-subtitle {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-bottom: 36px;
+  letter-spacing: 0.04em;
+}
+.widget-label {
+  font-size: 0.62rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 12px;
+  display: block;
+}
+/* Calendar */
+.calendar-widget { margin-bottom: 28px; }
+.cal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+.cal-month {
+  font-family: 'Cormorant Garant', serif;
+  font-size: 1.1rem;
+  color: var(--white);
+  font-weight: 400;
+}
+.cal-nav {
+  background: none;
+  border: 1px solid rgba(200,146,42,0.3);
+  color: var(--gold);
+  width: 30px; height: 30px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+}
+.cal-nav:hover { background: rgba(200,146,42,0.15); }
+.cal-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+  text-align: center;
+}
+.cal-day-name {
+  font-size: 0.58rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  padding: 6px 0;
+}
+.cal-day {
+  font-size: 0.82rem;
+  padding: 8px 4px;
+  cursor: pointer;
+  color: var(--text-muted);
+  border: 1px solid transparent;
+  transition: all 0.2s;
+  border-radius: 2px;
+}
+.cal-day:not(.empty):not(.disabled):hover { border-color: rgba(200,146,42,0.4); color: var(--gold); }
+.cal-day.selected { background: var(--gold); color: var(--charcoal); font-weight: 700; }
+.cal-day.today { border-color: rgba(200,146,42,0.5); color: var(--gold); }
+.cal-day.disabled { opacity: 0.25; cursor: not-allowed; }
+.cal-day.empty { cursor: default; }
+/* Time slots */
+.time-slots { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 28px; }
+.time-slot {
+  padding: 8px 14px;
+  border: 1px solid rgba(200,146,42,0.2);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.time-slot:hover { border-color: var(--gold); color: var(--gold); }
+.time-slot.selected { background: var(--gold); color: var(--charcoal); border-color: var(--gold); font-weight: 700; }
+.time-slot.unavailable { opacity: 0.2; cursor: not-allowed; text-decoration: line-through; }
+/* Guests */
+.guest-selector { display: flex; gap: 8px; margin-bottom: 28px; }
+.guest-btn {
+  padding: 10px 20px;
+  border: 1px solid rgba(200,146,42,0.2);
+  background: none;
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.guest-btn:hover { border-color: var(--gold); color: var(--gold); }
+.guest-btn.selected { background: var(--gold); color: var(--charcoal); border-color: var(--gold); font-weight: 700; }
+/* Form inputs */
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px; }
+.form-field { display: flex; flex-direction: column; gap: 6px; }
+.form-field input {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(200,146,42,0.2);
+  color: var(--text);
+  padding: 12px 14px;
+  font-size: 0.82rem;
+  font-family: 'Lato', sans-serif;
+  outline: none;
+  transition: border-color 0.3s;
+}
+.form-field input::placeholder { color: var(--text-muted); opacity: 0.5; }
+.form-field input:focus { border-color: var(--gold); }
+.form-field textarea {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(200,146,42,0.2);
+  color: var(--text);
+  padding: 12px 14px;
+  font-size: 0.82rem;
+  font-family: 'Lato', sans-serif;
+  outline: none;
+  transition: border-color 0.3s;
+  resize: none;
+  height: 80px;
+  width: 100%;
+  margin-bottom: 14px;
+}
+.form-field textarea:focus { border-color: var(--gold); }
+.btn-reserve {
+  width: 100%;
+  font-family: 'Cinzel', serif;
+  font-size: 0.8rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--charcoal);
+  background: var(--gold);
+  border: none;
+  padding: 17px;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+.btn-reserve:hover { background: var(--gold-light); transform: translateY(-2px); }
+.btn-reserve:active { transform: translateY(0); }
+.success-msg {
+  display: none;
+  text-align: center;
+  padding: 20px;
+  background: rgba(200,146,42,0.1);
+  border: 1px solid rgba(200,146,42,0.3);
+  margin-top: 16px;
+}
+.success-msg span { font-family: 'Cormorant Garant', serif; font-size: 1.1rem; color: var(--gold); }
+
+/* ─────────────────────────────────────────
+   FOOTER
+───────────────────────────────────────── */
+footer {
+  background: var(--charcoal);
+  border-top: 1px solid rgba(200,146,42,0.15);
+  padding: 60px 60px 40px;
+}
+.footer-inner {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 60px;
+  margin-bottom: 50px;
+}
+.footer-brand .nav-logo { font-size: 1.3rem; display: block; margin-bottom: 16px; }
+.footer-brand p { font-size: 0.82rem; color: var(--text-muted); line-height: 1.8; max-width: 280px; }
+.footer-col-title {
+  font-size: 0.62rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 20px;
+}
+.footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.footer-col a { font-size: 0.82rem; color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
+.footer-col a:hover { color: var(--gold); }
+.footer-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  padding-top: 30px;
+}
+.footer-bottom p { font-size: 0.72rem; color: var(--text-muted); }
+.footer-bottom span { color: var(--gold); }
+
+/* ─────────────────────────────────────────
+   RESPONSIVE (basic)
+───────────────────────────────────────── */
+@media (max-width: 900px) {
+  section { padding: 80px 24px; }
+  nav { padding: 18px 24px; }
+  .nav-links { display: none; }
+  #about, #contact { grid-template-columns: 1fr; gap: 48px; }
+  .about-img { height: 380px; }
+  .services-grid, .testimonials-grid { grid-template-columns: 1fr; }
+  .menu-layout { grid-template-columns: 1fr; }
+  .menu-image-stack { position: static; }
+  .social-feed { grid-template-columns: repeat(3, 1fr); }
+  .footer-inner { grid-template-columns: 1fr 1fr; gap: 36px; }
+  .about-stats { grid-template-columns: repeat(3,1fr); }
+  .social-channels { gap: 16px; }
+}
+/* ─────────────────────────────────────────
+   BRASA DE ENCINA
+───────────────────────────────────────── */
+.brasa-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 640px;
+}
+.brasa-img-col {
+  position: relative;
+  overflow: hidden;
+}
+.brasa-main-img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.8s ease;
+}
+.brasa-img-col:hover .brasa-main-img { transform: scale(1.04); }
+.brasa-img-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, transparent 60%, var(--charcoal) 100%);
+  pointer-events: none;
+}
+.brasa-img-inset {
+  position: absolute;
+  bottom: 40px;
+  right: -24px;
+  width: 200px;
+  height: 200px;
+  border: 3px solid var(--gold);
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+}
+.brasa-img-inset img { width: 100%; height: 100%; object-fit: cover; }
+.brasa-text-col {
+  padding: 90px 70px 90px 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.brasa-features {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.brasa-feature {
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+  padding: 20px 24px;
+  border: 1px solid rgba(200,146,42,0.15);
+  background: rgba(200,146,42,0.04);
+  transition: border-color 0.3s, background 0.3s;
+}
+.brasa-feature:hover { border-color: rgba(200,146,42,0.35); background: rgba(200,146,42,0.08); }
+.brasa-feature-icon { font-size: 1.4rem; flex-shrink: 0; margin-top: 2px; }
+.brasa-feature-title {
+  font-family: 'Cormorant Garant', serif;
+  font-size: 1.05rem;
+  color: var(--white);
+  margin-bottom: 4px;
+}
+.brasa-feature-desc { font-size: 0.82rem; color: var(--text-muted); line-height: 1.6; }
+
+/* ─────────────────────────────────────────
+   EVENTOS PRIVADOS
+───────────────────────────────────────── */
+.eventos-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 8px;
+  margin-bottom: 50px;
+}
+.evento-hero {
+  position: relative;
+  overflow: hidden;
+  height: 500px;
+}
+.evento-hero img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.7s ease;
+}
+.evento-hero:hover img { transform: scale(1.05); }
+.evento-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(14,12,10,0.85) 0%, transparent 60%);
+  display: flex;
+  align-items: flex-end;
+  padding: 32px;
+}
+.evento-tag {
+  font-family: 'Cormorant Garant', serif;
+  font-size: 1.15rem;
+  color: var(--white);
+  border-left: 2px solid var(--gold);
+  padding-left: 14px;
+}
+.evento-secondary {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  height: 500px;
+}
+.evento-card {
+  position: relative;
+  overflow: hidden;
+  flex: 1;
+  min-height: 0;
+}
+.evento-card img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.7s ease;
+}
+.evento-card:hover img { transform: scale(1.07); }
+.evento-card-label {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  background: linear-gradient(to top, rgba(14,12,10,0.9), transparent);
+  padding: 20px 20px 16px;
+  font-size: 0.75rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+.eventos-cta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 36px 44px;
+  border: 1px solid rgba(200,146,42,0.2);
+  background: rgba(200,146,42,0.04);
+  margin-top: 60px;
+}
+
+@media (max-width: 900px) {
+  .brasa-split { grid-template-columns: 1fr; }
+  .brasa-img-col { height: 380px; }
+  .brasa-img-overlay { background: linear-gradient(to top, var(--charcoal) 0%, transparent 50%); }
+  .brasa-img-inset { display: none; }
+  .brasa-text-col { padding: 60px 24px; }
+  .eventos-grid { grid-template-columns: 1fr; height: auto; }
+  .evento-hero { height: 320px; }
+  .evento-secondary { flex-direction: row; height: 200px; }
+  .eventos-cta { flex-direction: column; gap: 24px; text-align: center; }
+}
+
+/* ─────────────────────────────────────────
+   CURSOR PERSONALIZADO
+───────────────────────────────────────── */
+#cursor-dot {
+  position: fixed;
+  top: 0; left: 0;
+  width: 6px; height: 6px;
+  background: var(--gold);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 99999;
+  margin: -3px 0 0 -3px;
+  box-shadow: 0 0 8px var(--gold), 0 0 16px var(--ember);
+  transition: opacity 0.2s;
+}
+#cursor-ring {
+  position: fixed;
+  top: 0; left: 0;
+  width: 36px; height: 36px;
+  border: 1px solid rgba(200,146,42,0.6);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 99998;
+  margin: -18px 0 0 -18px;
+  transition: width 0.3s ease, height 0.3s ease, margin 0.3s ease, border-color 0.3s ease, background 0.3s ease;
+}
+#cursor-ring.hovered {
+  width: 60px; height: 60px;
+  margin: -30px 0 0 -30px;
+  border-color: var(--gold);
+  background: rgba(200,146,42,0.07);
+}
+
+</style>
+</head>
+<body>
+
+<!-- ──────────── NAV ──────────── -->
+<nav id="navbar">
+  <a href="#hero" class="nav-logo">BRASAS<span> & NOBLEZA</span></a>
+  <ul class="nav-links">
+    <li><a href="#about">Nosotros</a></li>
+    <li><a href="#services">Servicios</a></li>
+    <li><a href="#eventos">Eventos</a></li>
+    <li><a href="#menu">Menú</a></li>
+    <li><a href="#testimonials">Reseñas</a></li>
+    <li><a href="#contact">Contacto</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Reservar</a>
+</nav>
+
+<!-- ──────────── HERO ──────────── -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="embers" id="embers"></div>
+  <div class="hero-content">
+    <div class="hero-badge">Premium Grill · Desde 2009</div>
+    <h1>El auténtico sabor de la <em>excelencia:</em> cortes premium a la parrilla para paladares exigentes</h1>
+    <h2>Disfruta de la mejor selección de carnes maduradas, asadas a la perfección en nuestro exclusivo Grill.</h2>
+    <a href="#contact" class="btn-primary">Reservar mi mesa ahora</a>
+  </div>
+  <div class="hero-scroll">
+    <span>Descubrir</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- ──────────── QUIÉNES SOMOS ──────────── -->
+<section id="about">
+  <div class="about-text">
+    <div class="section-label">Quiénes Somos</div>
+    <h2 class="section-title">Nuestra Pasión por el <em>Fuego y la Carne</em></h2>
+    <div class="divider"><div class="divider-line"></div><div class="divider-icon">✦</div><div class="divider-line"></div></div>
+    <p class="body-text">
+      Seleccionamos personalmente cada pieza desde su origen, asegurando una trazabilidad impecable. Nuestros maestros parrilleros dominan el arte de las brasas para sellar los jugos y potenciar el sabor natural de las mejores razas del mundo, como el Wagyu y el Black Angus.
+    </p>
+    <div class="about-stats">
+      <div class="stat-item"><span class="stat-num">15+</span><span class="stat-label">Años de oficio</span></div>
+      <div class="stat-item"><span class="stat-num">60</span><span class="stat-label">Días máx. maduración</span></div>
+      <div class="stat-item"><span class="stat-num">4.9</span><span class="stat-label">Valoración media</span></div>
+    </div>
+  </div>
+  <div class="about-img">
+    <div class="about-img-frame"></div>
+    <img src="https://images.unsplash.com/photo-1558030006-450675393462?w=900&q=80" alt="Maestro parrillero">
+  </div>
+</section>
+
+<!-- ──────────── SERVICIOS ──────────── -->
+<section id="services">
+  <div class="services-header">
+    <div class="section-label">Nuestras Experiencias</div>
+    <h2 class="section-title">Servicios <em>Exclusivos</em></h2>
+    <div class="divider"><div class="divider-line"></div><div class="divider-icon">✦</div><div class="divider-line"></div></div>
+  </div>
+  <div class="services-grid">
+    <div class="service-card">
+      <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=700&q=80" alt="Servicio en mesa">
+      <div class="service-card-overlay">
+        <div class="service-num">01</div>
+        <div class="service-card-title">Corte y Flambeado en Mesa</div>
+        <p class="service-card-desc">Una experiencia visual y gastronómica donde nuestro chef prepara tu corte premium directamente en tu mesa.</p>
+      </div>
+    </div>
+    <div class="service-card">
+      <img src="https://images.unsplash.com/photo-1559329007-40df8a9345d8?w=700&q=80" alt="Eventos privados">
+      <div class="service-card-overlay">
+        <div class="service-num">02</div>
+        <div class="service-card-title">Eventos Privados y Cenas de Empresa</div>
+        <p class="service-card-desc">Espacios exclusivos con menús cerrados para celebraciones donde la calidad es la protagonista.</p>
+      </div>
+    </div>
+    <div class="service-card">
+      <img src="https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=700&q=80" alt="Cava de vinos">
+      <div class="service-card-overlay">
+        <div class="service-num">03</div>
+        <div class="service-card-title">Cava de Vinos y Maridaje</div>
+        <p class="service-card-desc">Asesoramiento personalizado de nuestros sumilleres para acompañar cada corte con el vino perfecto.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ──────────── EVENTOS PRIVADOS ──────────── -->
+<section id="eventos" style="background:var(--mid); padding:110px 60px;">
+  <div style="max-width:1100px; margin:0 auto;">
+    <div style="text-align:center; margin-bottom:60px;">
+      <div class="section-label" style="justify-content:center;">Celebraciones Exclusivas</div>
+      <h2 class="section-title">Eventos <em>Privados</em></h2>
+      <div class="divider" style="justify-content:center;"><div class="divider-line"></div><div class="divider-icon">✦</div><div class="divider-line"></div></div>
+      <p style="font-size:1rem;line-height:1.9;color:var(--text-muted);font-weight:300;max-width:620px;margin:0 auto;">Desde cenas de empresa hasta celebraciones íntimas. Nuestros espacios privados están diseñados para que cada momento sea memorable, con menús cerrados y atención exclusiva de principio a fin.</p>
+    </div>
+    <div class="eventos-grid">
+      <div class="evento-hero">
+        <img src="https://images.unsplash.com/photo-1559329007-40df8a9345d8?w=900&q=80" alt="Sala privada elegante">
+        <div class="evento-hero-overlay">
+          <div class="evento-tag">Sala Privada · Hasta 30 personas</div>
+        </div>
+      </div>
+      <div class="evento-secondary">
+        <div class="evento-card">
+          <img src="https://images.unsplash.com/photo-1544148103-0773bf10d330?w=600&q=80" alt="Mesa larga para evento privado">
+          <div class="evento-card-label">Cenas de Empresa</div>
+        </div>
+        <div class="evento-card">
+          <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=600&q=80" alt="Ambiente exclusivo restaurante">
+          <div class="evento-card-label">Celebraciones Privadas</div>
+        </div>
+      </div>
+    </div>
+    <div class="eventos-cta">
+      <div class="eventos-cta-text">
+        <span class="section-label">¿Tienes un evento especial?</span>
+        <p style="color:var(--text-muted);font-size:0.9rem;margin-top:6px;">Contáctanos y diseñamos juntos una experiencia a medida.</p>
+      </div>
+      <a href="#contact" class="btn-primary" style="animation:none;">Consultar disponibilidad</a>
+    </div>
+  </div>
+</section>
+
+<!-- ──────────── MENÚ ──────────── -->
+<section id="menu">
+  <div class="menu-layout">
+    <div class="menu-content">
+      <div class="section-label">La Carta</div>
+      <h2 class="section-title">Menú <em>Premium Grill</em></h2>
+      <div class="divider"><div class="divider-line"></div><div class="divider-icon">✦</div><div class="divider-line"></div></div>
+
+      <!-- Entrantes -->
+      <div class="menu-category">
+        <div class="menu-cat-label">— Entrantes</div>
+        <div class="menu-item">
+          <div class="menu-item-header">
+            <span class="menu-item-name">Steak Tartar de Solomillo</span>
+          </div>
+          <p class="menu-item-desc">Cortado a cuchillo, con yema curada y toques de trufa negra.</p>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-header">
+            <span class="menu-item-name">Provolone a la Brasa</span>
+          </div>
+          <p class="menu-item-desc">Con tomate seco y orégano fresco.</p>
+        </div>
+      </div>
+
+      <!-- Cortes -->
+      <div class="menu-category">
+        <div class="menu-cat-label">— Nuestros Cortes · Grill</div>
+        <div class="menu-item">
+          <div class="menu-item-header">
+            <span class="menu-item-name">Tomahawk de Black Angus (1.2 kg)</span>
+            <span class="menu-item-badge">Para compartir</span>
+          </div>
+          <p class="menu-item-desc">Ideal para compartir.</p>
+          <p class="menu-item-meta">⏱ Maduración 45 días</p>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-header">
+            <span class="menu-item-name">Ribeye de Wagyu Japonés (A5)</span>
+            <span class="menu-item-badge">Exclusivo</span>
+          </div>
+          <p class="menu-item-desc">El máximo grado de infiltración de grasa, textura que se deshace en la boca.</p>
+          <p class="menu-item-meta">🏅 Grado A5 · Japan Certified</p>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-header">
+            <span class="menu-item-name">Chuletón de Vaca Rubia Gallega</span>
+          </div>
+          <p class="menu-item-desc">Sabor intenso y profundo, madurado durante 60 días.</p>
+          <p class="menu-item-meta">⏱ Maduración 60 días · D.O. Galicia</p>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-header">
+            <span class="menu-item-name">Solomillo Premium</span>
+          </div>
+          <p class="menu-item-desc">El corte más tierno, sellado a la brasa de encina.</p>
+          <p class="menu-item-meta">🔥 Brasa de encina</p>
+        </div>
+      </div>
+
+      <!-- Guarniciones -->
+      <div class="menu-category">
+        <div class="menu-cat-label">— Guarniciones</div>
+        <div class="menu-item">
+          <div class="menu-item-header"><span class="menu-item-name">Patatas al Rescoldo</span></div>
+          <p class="menu-item-desc">Asadas al rescoldo con mantequilla de hierbas.</p>
+        </div>
+        <div class="menu-item">
+          <div class="menu-item-header"><span class="menu-item-name">Espárragos Trigueros</span></div>
+          <p class="menu-item-desc">A la parrilla con sal en escamas.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-image-stack">
+      <div class="menu-img-main">
+        <img src="https://images.unsplash.com/photo-1625937286074-9ca519d5d9df?w=800&q=80" alt="Tomahawk Steak">
+      </div>
+      <div class="menu-img-side">
+        <img src="https://images.unsplash.com/photo-1553163147-622ab57be1c7?w=400&q=80" alt="Ribeye Wagyu">
+      </div>
+      <div class="menu-img-side">
+        <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80" alt="Brasa encina">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ──────────── BRASA DE ENCINA ──────────── -->
+<section id="brasa" style="padding:0; background:var(--charcoal); position:relative; overflow:hidden;">
+  <div class="brasa-split">
+    <div class="brasa-img-col">
+      <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=900&q=80" alt="Brasa de encina" class="brasa-main-img">
+      <div class="brasa-img-overlay"></div>
+      <div class="brasa-img-inset">
+        <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=500&q=80" alt="Brasas ardientes encina">
+      </div>
+    </div>
+    <div class="brasa-text-col">
+      <div class="section-label">El Secreto del Sabor</div>
+      <h2 class="section-title">La <em>Brasa de Encina</em></h2>
+      <div class="divider"><div class="divider-line"></div><div class="divider-icon">✦</div><div class="divider-line"></div></div>
+      <p class="body-text" style="font-size:1.05rem;line-height:1.95;color:var(--text-muted);font-weight:300;margin-bottom:32px;">
+        La encina es la madera más noble para la parrilla. Su combustión lenta genera brasas de alta temperatura que sellan la carne de forma incomparable, aportando un aroma suave a madera que complementa, sin enmascarar, el sabor natural de cada corte premium.
+      </p>
+      <div class="brasa-features">
+        <div class="brasa-feature">
+          <div class="brasa-feature-icon">🌡️</div>
+          <div>
+            <div class="brasa-feature-title">Temperatura perfecta</div>
+            <div class="brasa-feature-desc">Más de 400°C para un sellado impecable que retiene todos los jugos.</div>
+          </div>
+        </div>
+        <div class="brasa-feature">
+          <div class="brasa-feature-icon">🪵</div>
+          <div>
+            <div class="brasa-feature-title">Madera 100% encina</div>
+            <div class="brasa-feature-desc">Seleccionada de dehesas sostenibles del sur de España.</div>
+          </div>
+        </div>
+        <div class="brasa-feature">
+          <div class="brasa-feature-icon">👨‍🍳</div>
+          <div>
+            <div class="brasa-feature-title">Maestro parrillero</div>
+            <div class="brasa-feature-desc">Con más de 15 años dominando el fuego y el punto exacto de cada corte.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ──────────── TESTIMONIOS ──────────── -->
+<section id="testimonials">
+  <div class="testimonials-header">
+    <div class="section-label">Reseñas</div>
+    <h2 class="section-title">Lo que dicen nuestros <em>comensales</em></h2>
+    <div class="divider"><div class="divider-line"></div><div class="divider-icon">✦</div><div class="divider-line"></div></div>
+    <div class="rating-badge">
+      <span>4.9</span>
+      <div>
+        <div class="stars">★★★★★</div>
+        <small>Valoración media · Google</small>
+      </div>
+    </div>
+  </div>
+  <div class="testimonials-grid">
+    <div class="testimonial-card">
+      <div class="testimonial-source">★ Google Reviews</div>
+      <p class="testimonial-text">"Posiblemente la mejor carne que he comido en mi vida. El punto del chuletón era exactamente el que pedimos y el servicio de 10."</p>
+      <span class="testimonial-author">— Carlos M.</span>
+    </div>
+    <div class="testimonial-card">
+      <div class="testimonial-source">📸 Instagram</div>
+      <p class="testimonial-text">"¡Espectacular experiencia anoche! El Wagyu es de otro planeta. Volveremos sin duda. Ambiente único y atención impecable."</p>
+      <span class="testimonial-author">— @LauraGourmet</span>
+    </div>
+    <div class="testimonial-card">
+      <div class="testimonial-source">★ Google Reviews</div>
+      <p class="testimonial-text">"El tomahawk para compartir fue toda una experiencia. El maridaje que nos recomendó el sumiller fue perfecto. Volvemos en nuestro aniversario."</p>
+      <span class="testimonial-author">— Miguel & Elena</span>
+    </div>
+  </div>
+  <img class="testimonial-img" src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1400&q=75" alt="Interior restaurante">
+</section>
+
+<!-- ──────────── REDES SOCIALES ──────────── -->
+<section id="social">
+  <div class="social-header">
+    <div class="section-label">Síguenos</div>
+    <h2 class="section-title">Únete a nuestra <em>comunidad</em></h2>
+    <div class="divider"><div class="divider-line"></div><div class="divider-icon">✦</div><div class="divider-line"></div></div>
+  </div>
+  <div class="social-channels">
+    <a href="#" class="social-channel">
+      <div class="social-icon">📸</div>
+      <div class="social-info">
+        <div class="social-handle">@TuRestaurantePremium</div>
+        <div class="social-followers">24.5K seguidores · Instagram</div>
+      </div>
+    </a>
+    <a href="#" class="social-channel">
+      <div class="social-icon">🎵</div>
+      <div class="social-info">
+        <div class="social-handle">@TuRestaurantePremium_Grill</div>
+        <div class="social-followers">12.2K seguidores · TikTok</div>
+      </div>
+    </a>
+    <a href="#" class="social-channel">
+      <div class="social-icon">👍</div>
+      <div class="social-info">
+        <div class="social-handle">Tu Restaurante Premium</div>
+        <div class="social-followers">8K seguidores · Facebook</div>
+      </div>
+    </a>
+  </div>
+  <div class="social-feed">
+    <div class="feed-item"><img src="https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba?w=300&q=75" alt="feed"><div class="feed-item-overlay"><span>♥</span></div></div>
+    <div class="feed-item"><img src="https://images.unsplash.com/photo-1607305387299-a3d9611cd469?w=300&q=75" alt="feed"><div class="feed-item-overlay"><span>♥</span></div></div>
+    <div class="feed-item"><img src="https://images.unsplash.com/photo-1546241072-48010ad2862c?w=300&q=75" alt="feed"><div class="feed-item-overlay"><span>♥</span></div></div>
+    <div class="feed-item"><img src="https://images.unsplash.com/photo-1558030006-450675393462?w=300&q=75" alt="feed"><div class="feed-item-overlay"><span>♥</span></div></div>
+    <div class="feed-item"><img src="https://images.unsplash.com/photo-1432139509613-5c4255815697?w=300&q=75" alt="feed"><div class="feed-item-overlay"><span>♥</span></div></div>
+  </div>
+</section>
+
+<!-- ──────────── CONTACTO Y RESERVAS ──────────── -->
+<section id="contact">
+  <div class="contact-info">
+    <div class="section-label">Contacto</div>
+    <h2 class="section-title">Reserva tu <em>experiencia</em></h2>
+    <div class="divider"><div class="divider-line"></div><div class="divider-icon">✦</div><div class="divider-line"></div></div>
+    <p class="body-text">Cada visita es un momento irrepetible. Reserva con antelación para asegurar tu mesa en la experiencia gastronómica más exclusiva de la ciudad.</p>
+    <ul class="info-list">
+      <li class="info-item">
+        <div class="info-icon">📍</div>
+        <div>
+          <div class="info-item-label">Dirección</div>
+          <div class="info-item-value">Calle de la Brasa, 123<br>Ciudad, España</div>
+        </div>
+      </li>
+      <li class="info-item">
+        <div class="info-icon">📞</div>
+        <div>
+          <div class="info-item-label">Teléfono</div>
+          <div class="info-item-value">+34 900 123 456</div>
+        </div>
+      </li>
+      <li class="info-item">
+        <div class="info-icon">🕐</div>
+        <div>
+          <div class="info-item-label">Horario</div>
+          <div class="info-item-value">Mar–Dom: 13:00–16:00 · 20:00–23:30<br><span style="color:var(--gold);font-size:0.82rem;">Lunes cerrado</span></div>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <!-- RESERVATION WIDGET -->
+  <div class="reservation-widget">
+    <div class="widget-title">Reservar Mesa</div>
+    <div class="widget-subtitle">Selecciona fecha, hora y número de comensales</div>
+
+    <!-- Calendar -->
+    <span class="widget-label">Selecciona el día</span>
+    <div class="calendar-widget">
+      <div class="cal-header">
+        <button class="cal-nav" id="prevMonth">&#8249;</button>
+        <div class="cal-month" id="calMonth">—</div>
+        <button class="cal-nav" id="nextMonth">&#8250;</button>
+      </div>
+      <div class="cal-grid" id="calGrid"></div>
+    </div>
+
+    <!-- Time Slots -->
+    <span class="widget-label">Disponibilidad de horas</span>
+    <div class="time-slots" id="timeSlots">
+      <div class="time-slot" data-t="13:00">13:00</div>
+      <div class="time-slot" data-t="13:30">13:30</div>
+      <div class="time-slot unavailable" data-t="14:00">14:00</div>
+      <div class="time-slot" data-t="14:30">14:30</div>
+      <div class="time-slot" data-t="15:00">15:00</div>
+      <div class="time-slot unavailable" data-t="15:30">15:30</div>
+      <div class="time-slot" data-t="20:00">20:00</div>
+      <div class="time-slot" data-t="20:30">20:30</div>
+      <div class="time-slot" data-t="21:00">21:00</div>
+      <div class="time-slot unavailable" data-t="21:30">21:30</div>
+      <div class="time-slot" data-t="22:00">22:00</div>
+      <div class="time-slot" data-t="22:30">22:30</div>
+    </div>
+
+    <!-- Guests -->
+    <span class="widget-label">Número de comensales</span>
+    <div class="guest-selector">
+      <button class="guest-btn" data-g="1">1</button>
+      <button class="guest-btn selected" data-g="2">2</button>
+      <button class="guest-btn" data-g="3">3</button>
+      <button class="guest-btn" data-g="4">4</button>
+      <button class="guest-btn" data-g="5">5</button>
+      <button class="guest-btn" data-g="6+">6+</button>
+    </div>
+
+    <!-- Contact fields -->
+    <div class="form-row">
+      <div class="form-field">
+        <input type="text" placeholder="Nombre y apellidos">
+      </div>
+      <div class="form-field">
+        <input type="tel" placeholder="Teléfono">
+      </div>
+    </div>
+    <div class="form-field">
+      <input type="email" placeholder="Correo electrónico" style="margin-bottom:14px;width:100%;">
+    </div>
+    <div class="form-field">
+      <textarea placeholder="Alergias, ocasión especial, peticiones..."></textarea>
+    </div>
+
+    <button class="btn-reserve" id="reserveBtn">Confirmar Reserva</button>
+    <div class="success-msg" id="successMsg">
+      <span>✦ Reserva recibida · Nos pondremos en contacto contigo en breve</span>
+    </div>
+  </div>
+</section>
+
+<!-- ──────────── FOOTER ──────────── -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="#hero" class="nav-logo">BRASAS<span> & NOBLEZA</span></a>
+      <p>El auténtico templo del fuego y la carne premium. Cada brasas, cada corte, una experiencia irrepetible.</p>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Navegación</div>
+      <ul>
+        <li><a href="#about">Nosotros</a></li>
+        <li><a href="#services">Servicios</a></li>
+        <li><a href="#eventos">Eventos Privados</a></li>
+        <li><a href="#menu">Carta</a></li>
+        <li><a href="#testimonials">Reseñas</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Síguenos</div>
+      <ul>
+        <li><a href="#">Instagram</a></li>
+        <li><a href="#">TikTok</a></li>
+        <li><a href="#">Facebook</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-title">Legal</div>
+      <ul>
+        <li><a href="#">Privacidad</a></li>
+        <li><a href="#">Cookies</a></li>
+        <li><a href="#">Aviso Legal</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 <span>Brasas & Nobleza</span> · Todos los derechos reservados.</p>
+    <p>Hecho con <span>✦</span> para paladares exigentes</p>
+  </div>
+</footer>
+
+<!-- ──────────── JS ──────────── -->
+<script>
+// ── Navbar scroll
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 60);
+});
+
+// ── Ember particles
+(function(){
+  const container = document.getElementById('embers');
+  const count = 30;
+  for (let i = 0; i < count; i++) {
+    const e = document.createElement('div');
+    e.classList.add('ember');
+    const size = Math.random() * 4 + 2;
+    e.style.cssText = `
+      left: ${Math.random() * 100}%;
+      width: ${size}px;
+      height: ${size}px;
+      animation-duration: ${Math.random() * 6 + 5}s;
+      animation-delay: ${Math.random() * 8}s;
+      --drift: ${(Math.random() - 0.5) * 120}px;
+    `;
+    container.appendChild(e);
+  }
+})();
+
+// ── Calendar
+(function(){
+  const monthNames = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+  const dayNames = ['Lu','Ma','Mi','Ju','Vi','Sá','Do'];
+  let cur = new Date(); cur.setDate(1);
+  let selectedDate = null;
+
+  function render() {
+    const y = cur.getFullYear(), m = cur.getMonth();
+    document.getElementById('calMonth').textContent = `${monthNames[m]} ${y}`;
+    const grid = document.getElementById('calGrid');
+    grid.innerHTML = '';
+    dayNames.forEach(d => {
+      const el = document.createElement('div');
+      el.className = 'cal-day-name'; el.textContent = d;
+      grid.appendChild(el);
+    });
+    const firstDay = new Date(y, m, 1).getDay();
+    const offset = (firstDay === 0) ? 6 : firstDay - 1;
+    for (let i = 0; i < offset; i++) {
+      const el = document.createElement('div'); el.className = 'cal-day empty'; grid.appendChild(el);
+    }
+    const days = new Date(y, m+1, 0).getDate();
+    const today = new Date(); today.setHours(0,0,0,0);
+    for (let d = 1; d <= days; d++) {
+      const dt = new Date(y, m, d);
+      const el = document.createElement('div');
+      el.className = 'cal-day';
+      el.textContent = d;
+      if (dt < today) { el.classList.add('disabled'); }
+      else {
+        if (dt.getTime() === today.getTime()) el.classList.add('today');
+        if (selectedDate && dt.toDateString() === selectedDate.toDateString()) el.classList.add('selected');
+        el.addEventListener('click', () => {
+          selectedDate = dt;
+          render();
+        });
+      }
+      grid.appendChild(el);
+    }
+  }
+  document.getElementById('prevMonth').addEventListener('click', () => {
+    cur.setMonth(cur.getMonth()-1); render();
+  });
+  document.getElementById('nextMonth').addEventListener('click', () => {
+    cur.setMonth(cur.getMonth()+1); render();
+  });
+  render();
+})();
+
+// ── Time slots
+document.querySelectorAll('.time-slot:not(.unavailable)').forEach(el => {
+  el.addEventListener('click', () => {
+    document.querySelectorAll('.time-slot').forEach(s => s.classList.remove('selected'));
+    el.classList.add('selected');
+  });
+});
+
+// ── Guest selector
+document.querySelectorAll('.guest-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.guest-btn').forEach(b => b.classList.remove('selected'));
+    btn.classList.add('selected');
+  });
+});
+
+// ── Reserve button
+document.getElementById('reserveBtn').addEventListener('click', () => {
+  const msg = document.getElementById('successMsg');
+  msg.style.display = 'block';
+  document.getElementById('reserveBtn').textContent = '✦ Reserva Enviada';
+  document.getElementById('reserveBtn').style.background = 'var(--gold-light)';
+  setTimeout(() => { msg.style.display = 'none'; }, 5000);
+});
+
+// ── Scroll reveal
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.style.opacity = '1';
+      e.target.style.transform = 'translateY(0)';
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.menu-item, .service-card, .testimonial-card, .social-channel').forEach(el => {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(24px)';
+  el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+  observer.observe(el);
+});
+// ── Custom cursor
+(function(){
+  const dot = document.createElement('div');
+  const ring = document.createElement('div');
+  dot.id = 'cursor-dot';
+  ring.id = 'cursor-ring';
+  document.body.appendChild(dot);
+  document.body.appendChild(ring);
+
+  let mx = -100, my = -100;
+  let rx = -100, ry = -100;
+
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX;
+    my = e.clientY;
+    dot.style.transform = `translate(${mx}px, ${my}px)`;
+  });
+
+  // Ring follows with smooth lag
+  function animateRing() {
+    rx += (mx - rx) * 0.12;
+    ry += (my - ry) * 0.12;
+    ring.style.transform = `translate(${rx}px, ${ry}px)`;
+    requestAnimationFrame(animateRing);
+  }
+  animateRing();
+
+  // Grow ring on hoverable elements
+  document.querySelectorAll('a, button, .service-card, .feed-item, .evento-card, .evento-hero, .nav-cta, .btn-primary, .btn-reserve').forEach(el => {
+    el.addEventListener('mouseenter', () => ring.classList.add('hovered'));
+    el.addEventListener('mouseleave', () => ring.classList.remove('hovered'));
+  });
+
+  // Hide default cursor
+  document.body.style.cursor = 'none';
+  document.querySelectorAll('a, button, input, textarea, [style*="cursor"]').forEach(el => {
+    el.style.cursor = 'none';
+  });
+})();
+</script>
+</body>
+</html>
